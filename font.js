@@ -4,6 +4,9 @@
  * with the radius _r_ and
  * the base _f0_
  *
+ * Based on this article:
+ * @see {@link https://spencermortensen.com/articles/typographic-scale/}
+ *
  * Examples:
  * f(0,6,3,16) = 16
  * f(6,6,3,16) = 48

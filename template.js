@@ -5,8 +5,8 @@
  */
 
 /**
- * @see https://github.com/mde/ejs
- * @see https://github.com/mde/ejs/blob/5b13088c6de0bff1ce5c6ff2eef7ee7eff0d6f3e/lib/ejs.js#L761-L786
+ * @see {@link https://github.com/mde/ejs}
+ * @see {@link https://github.com/mde/ejs/blob/5b13088c6de0bff1ce5c6ff2eef7ee7eff0d6f3e/lib/ejs.js#L761-L786}
  * @param {string} template
  * @returns {string[]}
  */
