@@ -15,7 +15,7 @@ import {
  *
  * @param {number} scaleNumber
  * @param {number} maxScaleNumber
- * @returns {number} - a number that is between 0 and 1
+ * @returns {number} a number that is between 0 and 1
  */
 const normalizeScaleNumber = (scaleNumber, maxScaleNumber) =>
   scaleNumber / maxScaleNumber;
@@ -64,7 +64,7 @@ const computeScaleLightness = (scaleValue) => 1 - scaleValue;
  * @param {number} baseHue - A hue that is between 0 and 360
  * @param {number} minChroma - Must be between 0 and 1
  * @param {number} maxChroma - Must be between 0 and 1
- * @returns {string | Error} - The calculated hexcode as a string
+ * @returns {string | Error} The calculated hexcode as a string
  */
 const computeColorAtScaleNumber = (
   scaleNumber,
