@@ -18,6 +18,24 @@ const fib = (n, memo = {}) => {
 };
 
 /**
+ *
+ * @param {number} m
+ * @param {number} n
+ * @param {Object} memo
+ * @returns
+ */
+const gridTraveler = (m, n, memo = {}) => {
+  const key = m + "," + n;
+
+  if (key in memo) return memo[key];
+  if (m === 1 && n === 1) return 1;
+  if (m === 0 || n === 0) return 0;
+
+  memo[key] = gridTraveler(m - 1, n, memo) + gridTraveler(m - 1, n, memo);
+  return memo[key];
+};
+
+/**
  * Euclidean Algorithm to get the greatest common devisor.
  * @param {number} a
  * @param {number} b
@@ -125,14 +143,14 @@ const take = (n, array) => {
 
 /**
  *
- * @param {Object} target
+ * @param {Object} value
  * @param {Object[]} array
  * @returns {boolean}
  */
-const element = (target, array) => {
+const element = (value, array) => {
   if (!array.length) return false;
   const [x, ...xs] = array;
-  return target == x ? true : element(target, xs);
+  return value == x ? true : element(value, xs);
 };
 
 /**
@@ -150,18 +168,18 @@ const quickSort = (array) => {
 
 /**
  * @see {@link https://en.wikipedia.org/wiki/Binary_search_algorithm}
- * @param {Object} target
+ * @param {Object} value
  * @param {Object[]} array
  * @param {number} [low=0]
  * @param {number} [high=array.length]
  * @returns {number}
  */
-const binarySearch = (target, array, low = 0, high = array.length) => {
+const binarySearch = (value, array, low = 0, high = array.length) => {
   if (high >= low) {
     const mid = low + Math.floor((high - low) / 2);
-    if (array[mid] == target) return mid;
-    if (array[mid] > target) return binarySearch(target, array, low, mid - 1);
-    return binarySearch(target, array, mid + 1, high);
+    if (array[mid] == value) return mid;
+    if (array[mid] > value) return binarySearch(value, array, low, mid - 1);
+    return binarySearch(value, array, mid + 1, high);
   }
   return -1;
 };
