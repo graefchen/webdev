@@ -53,38 +53,38 @@ const lcm = (a, b) => (x * y) / gcd(x, y);
 
 /**
  *
- * @param {Object} a
- * @param {Object} b
- * @returns {Object}
+ * @param {*} a
+ * @param {*} b
+ * @returns {boolean}
  */
 const max = (a, b) => (a >= b ? a : b);
 
 /**
  *
- * @param {Object} a
- * @param {Object} b
- * @returns {Object}
+ * @param {*} a
+ * @param {*} b
+ * @returns {boolean}
  */
 const min = (a, b) => (a <= b ? a : b);
 
 /**
  * @see  {@link https://www.30secondsofcode.org/js/s/array-head-tail/#head-of-an-array}
- * @param {Object[]} array
- * @returns {Object}
+ * @param {Array} array
+ * @returns {*}
  */
 const head = (array) => (array && array.length ? array[0] : undefined);
 
 /**
  * @see {@link https://www.30secondsofcode.org/js/s/array-head-tail/#tail-of-an-array}
- * @param {Object[]} array
- * @returns {Object[]}
+ * @param {Array} array
+ * @returns {Array}
  */
 const tail = (array) => (array && array.length > 1 ? array.slice(1) : []);
 
 /**
  *
- * @param {Object[]} array
- * @returns {Object[]}
+ * @param {Array} array
+ * @returns {Array}
  */
 const reverse = (array) => {
   if (!array.length) return [];
@@ -94,8 +94,8 @@ const reverse = (array) => {
 
 /**
  *
- * @param {Object[]} array
- * @returns {Object}
+ * @param {Array} array
+ * @returns {*}
  */
 const maximum = (array) => {
   if (!array.length) return Error("maximum of an empty list");
@@ -106,8 +106,8 @@ const maximum = (array) => {
 
 /**
  *
- * @param {Object[]} array
- * @returns {Object}
+ * @param {Array} array
+ * @returns {*}
  */
 const minimum = (array) => {
   if (!array.length) return Error("minimum of an empty list");
@@ -118,9 +118,9 @@ const minimum = (array) => {
 
 /**
  *
- * @param {Object[]} a
- * @param {Object[]} b
- * @returns {Object[]}
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array}
  */
 const zip = (a, b) => {
   if (!a.length || !b.length) return [];
@@ -132,8 +132,8 @@ const zip = (a, b) => {
 /**
  *
  * @param {number} n
- * @param {Object[]} array
- * @returns {Object[]}
+ * @param {Array} array
+ * @returns {Array}
  */
 const take = (n, array) => {
   if (n <= 0) return array;
@@ -143,8 +143,8 @@ const take = (n, array) => {
 
 /**
  *
- * @param {Object} value
- * @param {Object[]} array
+ * @param {*} value
+ * @param {Array} array
  * @returns {boolean}
  */
 const element = (value, array) => {
@@ -155,8 +155,8 @@ const element = (value, array) => {
 
 /**
  *
- * @param {Object[]} array
- * @returns {Object[]}
+ * @param {Array} array
+ * @returns {Array}
  */
 const quickSort = (array) => {
   if (array.length < 2) return array;
@@ -168,8 +168,8 @@ const quickSort = (array) => {
 
 /**
  * @see {@link https://en.wikipedia.org/wiki/Binary_search_algorithm}
- * @param {Object} value
- * @param {Object[]} array
+ * @param {*} value
+ * @param {Array} array
  * @param {number} [low=0]
  * @param {number} [high=array.length]
  * @returns {number}
@@ -197,8 +197,8 @@ const binarySearch = (value, array, low = 0, high = array.length) => {
  * }
  * return array;
  *
- * @param {Object[]} array
- * @returns {Object[]}
+ * @param {Array} array
+ * @returns {Array}
  */
 const shuffle = (array) => {
   if (array.length == 1) return array;
@@ -214,15 +214,42 @@ const shuffle = (array) => {
  * @returns {number[]}
  */
 const iota = (m) => {
+  if (m <= 0) return [];
   if (m == 1) return [1];
   return [...iota(m - 1), m];
 };
 
 /**
  *
- * @param {Object} n
+ * @param {number} start
+ * @param {number} end
+ * @param {number} [interval=1]
+ * @returns {number[]}
+ */
+const range = (start, end, interval = 1) => {
+  if (start > end) return [];
+  return [start, ...range(start + interval, end, interval)];
+};
+
+/**
+ *
+ * @param {Array} array
+ * @param {number} start
+ * @param {number} [end=array.length]
+ * @returns {Array}
+ */
+const slice = (array, start, end = array.length) => {
+  if (!array.length) return [];
+  if (start >= end) return [];
+  const [x, ...xs] = array;
+  return [x, slice(xs, start + 1, end)];
+};
+
+/**
+ *
+ * @param {*} n
  * @param {number} f
- * @returns {Object[]}
+ * @returns {Array}
  */
 const repeat = (n, f) => {
   if (f <= 0) return [];
