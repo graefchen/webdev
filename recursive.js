@@ -98,9 +98,9 @@ const reverse = (array) => {
 const maximum = (array) => {
   if (!array.length) return Error("maximum of an empty list");
   if (array.length === 1) return head(array);
-  const h = head(array);
-  const t = maximum(tail(array));
-  return h >= t ? h : t;
+  const x = head(array),
+    xs = maximum(tail(array));
+  return x >= xs ? x : xs;
 };
 
 /**
@@ -111,9 +111,9 @@ const maximum = (array) => {
 const minimum = (array) => {
   if (!array.length) return Error("minimum of an empty list");
   if (array.length === 1) return head(array);
-  const h = head(array);
-  const t = minimum(tail(array));
-  return h <= t ? h : t;
+  const x = head(array),
+    xs = minimum(tail(array));
+  return x <= xs ? x : xs;
 };
 
 /**
@@ -147,9 +147,9 @@ const take = (n, array) => {
  */
 const filter = (array, fn) => {
   if (!array.length) return [];
-  const h = head(array);
-  const t = filter(tail(array), fn);
-  return fn(h) ? [h, ...t] : t;
+  const x = head(array),
+    xs = filter(tail(array), fn);
+  return fn(x) ? [x, ...xs] : xs;
 };
 
 /**
