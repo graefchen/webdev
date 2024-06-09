@@ -126,6 +126,19 @@ const take = (n, array) => {
 
 /**
  *
+ * @param {Array} array
+ * @param {Function} fn
+ * @returns {Array}
+ */
+const filter = (array, fn) => {
+  if (!array.length) return [];
+  const h = head(array);
+  const t = filter(tail(array), fn);
+  return fn(h) ? [h, ...t] : t;
+};
+
+/**
+ *
  * @param {*} value
  * @param {Array} array
  * @returns {boolean}
@@ -144,8 +157,8 @@ const quickSort = (array) => {
   if (array.length < 2) return array;
   const x = head(array),
     xs = tail(array);
-  const smallerSorted = quickSort(xs.filter((a) => a <= x));
-  const biggerSorted = quickSort(xs.filter((a) => a > x));
+  const smallerSorted = quickSort(filter(xs, (a) => a <= x));
+  const biggerSorted = quickSort(filter(xs, (a) => a > x));
   return [...smallerSorted, x, ...biggerSorted];
 };
 
