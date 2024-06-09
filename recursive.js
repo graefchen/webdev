@@ -88,8 +88,7 @@ const tail = (array) => (array && array.length > 1 ? array.slice(1) : []);
  */
 const reverse = (array) => {
   if (!array.length) return [];
-  const [x, ...xs] = array;
-  return [...reverse(xs), x];
+  return [...reverse(tail(array)), head(array)];
 };
 
 /**
@@ -100,8 +99,7 @@ const reverse = (array) => {
 const maximum = (array) => {
   if (!array.length) return Error("maximum of an empty list");
   if (array.length == 1) return head(array);
-  const [x, ...xs] = array;
-  return max(x, maximum(xs));
+  return max(head(array), maximum(tail(array)));
 };
 
 /**
@@ -112,8 +110,7 @@ const maximum = (array) => {
 const minimum = (array) => {
   if (!array.length) return Error("minimum of an empty list");
   if (array.length == 1) return head(array);
-  const [x, ...xs] = array;
-  return min(x, minimum(xs));
+  return min(head(array), minimum(tail(array)));
 };
 
 /**
@@ -124,9 +121,7 @@ const minimum = (array) => {
  */
 const zip = (a, b) => {
   if (!a.length || !b.length) return [];
-  const [x, ...xs] = a;
-  const [y, ...ys] = b;
-  return [[x, y], ...zip(xs, ys)];
+  return [[head(a), head(b)], ...zip(tail(a), tail(b))];
 };
 
 /**
@@ -149,8 +144,7 @@ const take = (n, array) => {
  */
 const element = (value, array) => {
   if (!array.length) return false;
-  const [x, ...xs] = array;
-  return value == x ? true : element(value, xs);
+  return value == head(array) ? true : element(value, tail(array));
 };
 
 /**
@@ -160,7 +154,8 @@ const element = (value, array) => {
  */
 const quickSort = (array) => {
   if (array.length < 2) return array;
-  const [x, ...xs] = array;
+  const x = head(array),
+    xs = tail(array);
   const smallerSorted = quickSort(xs.filter((a) => a <= x));
   const biggerSorted = quickSort(xs.filter((a) => a > x));
   return [...smallerSorted, x, ...biggerSorted];
@@ -239,10 +234,8 @@ const range = (start, end, interval = 1) => {
  * @returns {Array}
  */
 const slice = (array, start, end = array.length) => {
-  if (!array.length) return [];
-  if (start >= end) return [];
-  const [x, ...xs] = array;
-  return [x, slice(xs, start + 1, end)];
+  if (!array.length || start >= end) return [];
+  return [head(array), slice(tail(array), start + 1, end)];
 };
 
 /**
