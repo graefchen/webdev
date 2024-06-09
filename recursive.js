@@ -49,23 +49,7 @@ const gcd = (a, b) => (!b ? a : gcd(b, a % b));
  * @param {number} b
  * @returns {number}
  */
-const lcm = (a, b) => (x * y) / gcd(x, y);
-
-/**
- *
- * @param {*} a
- * @param {*} b
- * @returns {boolean}
- */
-const max = (a, b) => (a >= b ? a : b);
-
-/**
- *
- * @param {*} a
- * @param {*} b
- * @returns {boolean}
- */
-const min = (a, b) => (a <= b ? a : b);
+const lcd = (a, b) => (x * y) / gcd(x, y);
 
 /**
  * @see  {@link https://www.30secondsofcode.org/js/s/array-head-tail/#head-of-an-array}
@@ -98,8 +82,10 @@ const reverse = (array) => {
  */
 const maximum = (array) => {
   if (!array.length) return Error("maximum of an empty list");
-  if (array.length == 1) return head(array);
-  return max(head(array), maximum(tail(array)));
+  if (array.length === 1) return head(array);
+  const h = head(array);
+  const t = maximum(tail(array));
+  return h >= t ? h : t;
 };
 
 /**
@@ -109,8 +95,10 @@ const maximum = (array) => {
  */
 const minimum = (array) => {
   if (!array.length) return Error("minimum of an empty list");
-  if (array.length == 1) return head(array);
-  return min(head(array), minimum(tail(array)));
+  if (array.length === 1) return head(array);
+  const h = head(array);
+  const t = minimum(tail(array));
+  return h <= t ? h : t;
 };
 
 /**
@@ -222,7 +210,9 @@ const iota = (m) => {
  * @returns {number[]}
  */
 const range = (start, end, interval = 1) => {
-  if (start > end) return [];
+  if (interval == 0) return Error("Can't go 0 steps.");
+  if (start > end && interval >= 1) return [];
+  if (start < end && interval <= -1) return [];
   return [start, ...range(start + interval, end, interval)];
 };
 
