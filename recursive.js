@@ -68,6 +68,21 @@ const tail = (array) => (array && array.length > 1 ? array.slice(1) : []);
 /**
  *
  * @param {Array} array
+ * @returns {any}
+ */
+const init = (array) =>
+  array.length === 1 ? [] : [head(array), ...init(tail(array))];
+
+/**
+ *
+ * @param {Array} array
+ * @returns {any}
+ */
+const last = (array) => (array.length === 1 ? array[0] : last(tail(array)));
+
+/**
+ *
+ * @param {Array} array
  * @returns {Array}
  */
 const reverse = (array) => {
