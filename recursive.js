@@ -52,33 +52,61 @@ const gcd = (a, b) => (!b ? a : gcd(b, a % b));
 const lcd = (a, b) => (x * y) / gcd(x, y);
 
 /**
- * @see  {@link https://www.30secondsofcode.org/js/s/array-head-tail/#head-of-an-array}
+ *
+ * @param {Array} array
+ * @returns {boolean}
+ */
+const empty = (array) => (array[0] === undefined ? true : false);
+
+/**
  * @param {Array} array
  * @returns {*}
  */
-const head = (array) => (array && array.length ? array[0] : undefined);
+const head = (array) => {
+  if (empty(array)) return Error("empty list");
+  const [x] = array;
+  return x;
+};
 
 /**
  * @see {@link https://www.30secondsofcode.org/js/s/array-head-tail/#tail-of-an-array}
  * @param {Array} array
  * @returns {Array}
  */
-const tail = (array) => (array && array.length > 1 ? array.slice(1) : []);
+const tail = (array) => {
+  if (empty(array)) return Error("empty list");
+  const [x, ...xs] = array;
+  return xs;
+};
 
 /**
  *
  * @param {Array} array
  * @returns {any}
  */
-const init = (array) =>
-  array.length === 1 ? [] : [head(array), ...init(tail(array))];
+const init = (array) => {
+  if (empty(array)) return Error("empty list");
+  return !empty(tail(array)) ? [head(array), ...init(tail(array))] : [];
+};
 
 /**
  *
  * @param {Array} array
  * @returns {any}
  */
-const last = (array) => (array.length === 1 ? array[0] : last(tail(array)));
+const last = (array) => {
+  if (empty(array)) return Error("empty list");
+  const x = head(array),
+    xs = tail(array);
+  return empty(xs) ? x : last(xs);
+};
+
+/**
+ *
+ * @param {Array} array
+ * @returns {number}
+ */
+const lenght = (array) => (!empty(array) ? 1 + lenght(tail(array)) : 0);
 
 /**
  *
@@ -86,8 +114,32 @@ const last = (array) => (array.length === 1 ? array[0] : last(tail(array)));
  * @returns {Array}
  */
 const reverse = (array) => {
-  if (!array.length) return [];
+  if (empty(array)) return [];
   return [...reverse(tail(array)), head(array)];
+};
+
+/**
+ *
+ * @param {number} n
+ * @param {Array} array
+ * @returns {Array}
+ */
+const take = (n, array) => {
+  if (n <= 0) return array;
+  if (empty(array)) return [];
+  return take(n - 1, tail(array));
+};
+
+/**
+ *
+ * @param {number} n
+ * @param {Array} array
+ * @returns {Array}
+ */
+const drop = (n, array) => {
+  if (n <= 0) return array;
+  if (empty(array)) return [];
+  return [...drop(n - 1, tail(array))];
 };
 
 /**
@@ -96,7 +148,7 @@ const reverse = (array) => {
  * @returns {*}
  */
 const maximum = (array) => {
-  if (!array.length) return Error("maximum of an empty list");
+  if (empty(array)) return Error("empty list");
   if (array.length === 1) return head(array);
   const x = head(array),
     xs = maximum(tail(array));
@@ -109,11 +161,51 @@ const maximum = (array) => {
  * @returns {*}
  */
 const minimum = (array) => {
-  if (!array.length) return Error("minimum of an empty list");
+  if (empty(array)) return Error("empty list");
   if (array.length === 1) return head(array);
   const x = head(array),
     xs = minimum(tail(array));
   return x <= xs ? x : xs;
+};
+
+/**
+ *
+ * @param {Array} array
+ * @returns {number}
+ */
+const sum = (array) => (!empty(array) ? head(array) + sum(tail(array)) : 0);
+
+/**
+ *
+ * @param {Array} array
+ * @returns {number}
+ */
+const product = (array) => {
+  if (empty(array)) return 0;
+  if (lenght(array) >= 1) return head(array) * product(tail(array));
+  return;
+};
+
+/**
+ *
+ * @param {*} value
+ * @param {Array} array
+ * @returns {boolean}
+ */
+const elem = (value, array) => {
+  if (empty(array)) return false;
+  return value == head(array) ? true : elem(value, tail(array));
+};
+
+/**
+ *
+ * @param {*} n
+ * @param {number} f
+ * @returns {Array}
+ */
+const repeat = (n, f) => {
+  if (f <= 0) return [];
+  return [n, ...repeat(n, f - 1)];
 };
 
 /**
@@ -123,20 +215,8 @@ const minimum = (array) => {
  * @returns {Array}
  */
 const zip = (a, b) => {
-  if (!a.length || !b.length) return [];
+  if (empty(a) || empty(b)) return [];
   return [[head(a), head(b)], ...zip(tail(a), tail(b))];
-};
-
-/**
- *
- * @param {number} n
- * @param {Array} array
- * @returns {Array}
- */
-const take = (n, array) => {
-  if (n <= 0) return array;
-  if (!array.length) return [];
-  return take(n, tail(array));
 };
 
 /**
@@ -146,21 +226,10 @@ const take = (n, array) => {
  * @returns {Array}
  */
 const filter = (array, fn) => {
-  if (!array.length) return [];
+  if (empty(array)) return [];
   const x = head(array),
     xs = filter(tail(array), fn);
   return fn(x) ? [x, ...xs] : xs;
-};
-
-/**
- *
- * @param {*} value
- * @param {Array} array
- * @returns {boolean}
- */
-const element = (value, array) => {
-  if (!array.length) return false;
-  return value == head(array) ? true : element(value, tail(array));
 };
 
 /**
@@ -169,7 +238,7 @@ const element = (value, array) => {
  * @returns {Array}
  */
 const quickSort = (array) => {
-  if (array.length < 2) return array;
+  if (lenght(array) < 2) return array;
   const x = head(array),
     xs = tail(array);
   const smallerSorted = quickSort(filter(xs, (a) => a <= x));
@@ -212,7 +281,7 @@ const binarySearch = (value, array, low = 0, high = array.length) => {
  * @returns {Array}
  */
 const shuffle = (array) => {
-  if (array.length == 1) return array;
+  if (lenght(array) == 1) return array;
   const r = Math.floor(Math.random() * array.length);
   const t = array[r];
   array[r] = head(array);
@@ -252,19 +321,8 @@ const range = (start, end, interval = 1) => {
  * @returns {Array}
  */
 const slice = (array, start, end = array.length) => {
-  if (!array.length || start >= end) return [];
+  if (empty(array) || start >= end) return [];
   return [head(array), slice(tail(array), start + 1, end)];
-};
-
-/**
- *
- * @param {*} n
- * @param {number} f
- * @returns {Array}
- */
-const repeat = (n, f) => {
-  if (f <= 0) return [];
-  return [n, ...repeat(n, f - 1)];
 };
 
 const a = iota(100);
@@ -283,5 +341,5 @@ const s = shuffle(a);
 // console.log(mx);
 // const mn = minimum(rv);
 // console.log(mn);
-// const e = element(1000, a);
+// const e = elem(1000, a);
 // console.log(e);
