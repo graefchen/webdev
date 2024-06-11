@@ -180,11 +180,8 @@ const sum = (array) => (!empty(array) ? head(array) + sum(tail(array)) : 0);
  * @param {Array} array
  * @returns {number}
  */
-const product = (array) => {
-  if (empty(array)) return 0;
-  if (lenght(array) >= 1) return head(array) * product(tail(array));
-  return;
-};
+const product = (array) =>
+  empty(array) ? head(array) * product(tail(array)) : 1;
 
 /**
  *
