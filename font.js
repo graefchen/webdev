@@ -1,4 +1,9 @@
 /**
+ * @file font thing programming
+ * @author graefchem
+ */
+
+/**
  * Calculating typografic scale
  * for _i_ of _n_
  * with the radius _r_ and

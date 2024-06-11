@@ -1,5 +1,6 @@
 /**
- *
+ * @file "ai" programming for fun
+ * @author graefchem
  */
 
 /**

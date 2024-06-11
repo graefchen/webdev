@@ -1,4 +1,7 @@
 /**
+ *
+ * @file colours.js
+ * @author graefchem
  * Code based on:
  * https://matthewstrom.com/writing/generating-color-palettes/
  * https://bottosson.github.io/misc/colorpicker/
@@ -187,7 +190,7 @@ for (let i = start; i <= end; i += step) {
 }
 colors += "</tbody></table>";
 
-const html = `<!DOCTYPE html>
+const html = /*html*/ `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">

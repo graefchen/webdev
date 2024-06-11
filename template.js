@@ -1,4 +1,6 @@
 /**
+ * @file A small experiment to write an templating engine
+ * @author graefchem
  * A small experiment to write an templating engine
  * heavily inspired by:
  * - https://hackernoon.com/how-to-create-new-template-engine-using-javascript-8f26313p
