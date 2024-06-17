@@ -19,3 +19,11 @@ const gcd = (x, y) => (!y ? x : gcd(y, x % y));
  * @returns {number}
  */
 const lcd = (x, y) => (x * y) / gcd(x, y);
+
+/**
+ * logarithm with the base
+ * @param {number} x
+ * @param {number} [b=10]
+ * @returns
+ */
+const log = (x, b = 10) => Math.log(x) / Math.log(b);
